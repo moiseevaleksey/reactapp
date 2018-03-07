@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import blogs from './blogs';
 import filterBlogs from './filterBlogs';
 
-export default combineReducers ({
+export default combineReducers({
   blogs,
   filterBlogs,
 });
