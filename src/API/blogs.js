@@ -1,16 +1,22 @@
-class blog {
-  addNewBlog({ text, title }) {
-    const formData = new FormData();
+require('isomorphic-fetch');
 
-    formData.append('title', title);
-    formData.append('text', text);
+class Blog {
+  getBlogsList() {
+    return fetch('http://localhost:3012/api/blogs/', {})
+  }
 
-    return fetch('http://example.com/api/v1/registration', {
-      method: 'POST',
-      body: formData
+  postNewBlog(blog) {
+    return fetch('http://localhost:3012/api/blogs/', {
+      method: 'post',
+      headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(blog)
     })
-      .then(response => response.json())
   }
 }
+
+const blog = new Blog();
 
 export default blog;
