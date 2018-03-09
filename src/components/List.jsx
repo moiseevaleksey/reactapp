@@ -1,12 +1,18 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import blog from '../API/blogs';
 
 class List extends Component {
   deleteBlog(id) {
     this.props.onBlogDelete(id);
   }
 
+  getBlogs() {
+    this.props.onGetBlogs();
+  }
+
   render() {
+    this.getBlogs();
     return (
       <div>
         <ul>
@@ -32,6 +38,11 @@ export default connect(
   dispatch => ({
     onBlogDelete: id => {
       dispatch({ type: 'DELETE_BLOG', id });
+    },
+    onGetBlogs: () => {
+      blog.getBlogs()
+        .then(response => response.json())
+        .then(data => dispatch({ type: 'LOAD_BLOGS', data}));
     },
   })
 )(List);

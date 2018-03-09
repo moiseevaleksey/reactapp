@@ -1,8 +1,8 @@
 require('isomorphic-fetch');
 
 class Blog {
-  getBlogsList() {
-    return fetch('http://localhost:3012/api/blogs/', {})
+  getBlogs() {
+    return fetch('http://localhost:3012/api/blogs/');
   }
 
   postNewBlog(blog) {
