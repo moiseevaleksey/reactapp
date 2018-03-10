@@ -13,7 +13,13 @@ class Blog {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(blog)
-    })
+    });
+  }
+
+  deleteBlog(id) {
+    return fetch('http://localhost:3012/api/blogs/' + id, {
+      method: 'delete',
+    });
   }
 }
 

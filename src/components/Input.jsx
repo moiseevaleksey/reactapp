@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import blog from '../API/blogs';
 
 class BlogInput extends Component {
-  addBlog() {
-    this.props.onAddBlog({
-      blogText: this.blogTextInpt.value,
-      blogTitle: this.blogTitleInpt.value,
+  postNewBlog() {
+    this.props.onPostNewBlog({
+      text: this.blogTextInpt.value,
+      title: this.blogTitleInpt.value,
     });
     this.blogTextInpt.value = '';
     this.blogTitleInpt.value = '';
@@ -16,7 +17,7 @@ class BlogInput extends Component {
       <div>
         <input ref={input => (this.blogTitleInpt = input)} placeholder="Title"/>
         <input ref={input => (this.blogTextInpt = input)} placeholder="Text"/>
-        <button onClick={this.addBlog.bind(this)}>Add blog</button>
+        <button onClick={this.postNewBlog.bind(this)}>Add blog</button>
       </div>
     );
   }
@@ -27,8 +28,9 @@ export default connect(
     blogList: state,
   }),
   dispatch => ({
-    onAddBlog: blog => {
-      dispatch({ type: 'ADD_BLOG', blog: blog });
+    onPostNewBlog: newBlog => {
+      blog.postNewBlog(newBlog)
+      .then(response => console.log(response.status));
     },
   })
 )(BlogInput);

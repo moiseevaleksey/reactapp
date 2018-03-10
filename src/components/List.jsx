@@ -16,8 +16,8 @@ class List extends Component {
     return (
       <div>
         <ul>
-          {this.props.state.map(({ id, title, text }) => (
-            <li key={id} onClick={() => this.deleteBlog(id)} data-id={id}>
+          {this.props.state.map(({ _id, title, text }) => (
+            <li key={_id} onClick={() => this.deleteBlog(_id)} data-id={_id}>
               Title:{title}, Text: {text}
             </li>
           ))}
@@ -36,13 +36,14 @@ export default connect(
     ),
   }),
   dispatch => ({
-    onBlogDelete: id => {
-      dispatch({ type: 'DELETE_BLOG', id });
+    onBlogDelete: (id) => {
+      blog.deleteBlog(id)
+        .then(response => console.log(response.status));
     },
     onGetBlogs: () => {
       blog.getBlogs()
         .then(response => response.json())
         .then(data => dispatch({ type: 'LOAD_BLOGS', data}));
-    },
+    }
   })
 )(List);
